@@ -20,7 +20,7 @@ const connectDB = async () => {
     }
 }
 
-const getDB = async () => {
+const getDB = () => {
     if(!db) throw new Error("No Database available");
 
     return db;

@@ -3,21 +3,33 @@ import { getDB } from "../config/db.js";
 const col_name = "URL";
 
 async function handleURLPOST(short, url) {
-    const db = getDB();
+    const db = await getDB();
 
-    const isExisting = await db.collection(col_name).find({shortid: short});
+    console.log("Searching URL:", url);
+    const isExisting = await db.collection(col_name).findOne({url});
 
     if(isExisting) {
-        return res.status(200).json({short, url});
+        console.log("Found in DB:", isExisting);
+        return isExisting;
     }
 
     const result = await db.collection(col_name).insertOne({shortid: short, url: url});
 
+    const res = await db.collection(col_name).findOne({url});
+
+    console.log("Inserted:", res);
+
+    return res;
+}
+
+async function handleURLGET (shortid) {
+    const db = await getDB();
+
+    const result = await db.collection(col_name).findOne({shortid: shortid});
+
     return result;
 }
 
-// async function 
 
 
-
-export {handleURLPOST};
+export {handleURLPOST, handleURLGET};

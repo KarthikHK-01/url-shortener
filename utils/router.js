@@ -1,7 +1,9 @@
 import express from "express";
-import { nanoid } from "nanoid";
+import { getURL, handleShortURL } from "../controller/url-controller.js";
 
 const router = express.Router();
 
-router.post("/", );
-router.get("/:id", );
+router.post("/", handleShortURL);
+router.get("/:shortid", getURL);
+
+export default router;
