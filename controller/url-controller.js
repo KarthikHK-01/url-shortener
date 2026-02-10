@@ -12,7 +12,7 @@ async function handleShortURL (req, res) {
 }
 
 async function getURL (req, res) {
-    const shortid = req.params.shortid;
+    const shortid = req.query.id;
 
     const result = await handleURLGET(shortid);
     console.log(result);
